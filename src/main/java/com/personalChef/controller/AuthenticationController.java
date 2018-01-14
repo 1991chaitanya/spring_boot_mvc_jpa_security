@@ -20,4 +20,10 @@ public class AuthenticationController {
 		return new ModelAndView("login");
 	}
 	
+	
+	@RequestMapping(value ="/show-home", method=RequestMethod.GET)
+	public ModelAndView showHomePage(Model model) {
+		System.out.println("Show Home page");
+		return new ModelAndView("home");
+	}
 }

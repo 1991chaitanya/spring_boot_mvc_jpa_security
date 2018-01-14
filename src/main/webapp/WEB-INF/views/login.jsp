@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="col-md-4 col-md-offset-6 centered">
-<form id="loginForm" method="post" commandName="user" action="<c:url value='j_spring_security_check' />">
+<form id="loginForm" method="post" action="/login">
   
   <div class="imgcontainer">
    <!--  <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->

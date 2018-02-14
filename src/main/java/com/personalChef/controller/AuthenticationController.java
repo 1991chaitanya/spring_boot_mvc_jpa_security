@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,6 +31,20 @@ public class AuthenticationController {
 		return new ModelAndView("login");
 	}
 	
+	@RequestMapping(value ="/user", method=RequestMethod.GET)
+	public ModelAndView showSignUpPage(Model model) {
+		System.out.println("Show Sign Up page");
+		return new ModelAndView("signup");
+	}
+	
+	@RequestMapping(value ="/user", method=RequestMethod.POST)
+	public @ResponseBody User createUser(@ModelAttribute("user") User user) {
+		System.out.println("User Details: ");
+		System.out.println("User name: "+user.getUsername());
+		System.out.println("User password: "+user.getPassword());
+		System.out.println("User phone: "+user.getPhone());
+		return userService.save(user);
+	}
 	
 	@RequestMapping(value ="/show-home", method=RequestMethod.GET)
 	public ModelAndView showHomePage(Model model) {

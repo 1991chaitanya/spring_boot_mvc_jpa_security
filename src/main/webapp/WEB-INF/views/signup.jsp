@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="col-md-4 col-md-offset-6 centered">
-<form id="loginForm" method="post" action="/login">
+<form id="signUpForm" method="post" action="/user" modelAttribute="user">
   
   <div class="imgcontainer">
    <!--  <img src="img_avatar2.png" alt="Avatar" class="avatar"> -->
@@ -27,16 +27,19 @@
     <label><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="password">
 
-    <button type="submit">Login</button>
+    <label><b>Phone Number</b></label>
+    <input type="text" placeholder="Enter Phone Number" name="phone">
+
+    <button type="submit">Sign Up</button>
     <input type="checkbox" checked="checked"> Remember me
     <div id="result"></div>
   </div>
 
-  <div class="container" style="background-color:#f1f1f1">
+  <!-- <div class="container" style="background-color:#f1f1f1">
     <button type="button" class="cancelbtn">Cancel</button>
-    <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
-    <span class="psw"><a href="/user">Sign Up </a></span>
-  </div>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+    <span class="psw">Sign Up <a href="/user">password?</a></span>
+  </div> -->
   <div class="container" style="background-color:#f1f1f1">
     <p>${error}</p>
   </div>

@@ -15,15 +15,19 @@ $(document).ready(function(e){
     	var val = $('#searchTxt').val();
     	$.ajax({
 			type : "GET",
-			contentType : "application/json;charset=utf-8",
-			url : "searchContacts.htm",
-			data : {"searhTxt" : val},
-			dataType : 'json',
+			accept : "application/json;charset=utf-8",
+			url : "chefs",
 			timeout : 100000,
 			success : function(data) {
 				console.log("SUCCESS: ", data);
-				$.each(data, function(index, currEmp) {
-		             console.log(currEmp.name); //to print name of employee
+				$('#contact-list').css("display", "block");
+				$.each(data, function(index, currChef) {
+		             console.log(currChef.name); //to print name of employee
+		             $("#chef"+(index+1)).append("<span class='name'>"+currChef.name+'</span><br/>');
+		             $("#chef"+(index+1)).append("<span class='glyphicon glyphicon-map-marker text-muted c-info' data-toggle='tooltip' title='"+currChef.address+"'></span>");
+		             $("#chef"+(index+1)).append("<span class=''><span class='name text-muted'>"+currChef.address+'</span><br/></span>');
+		             $("#chef"+(index+1)).append("<span class='glyphicon glyphicon-earphone text-muted c-info' data-toggle='tooltip' title='"+currChef.phone+"'></span>");
+		             $("#chef"+(index+1)).append("<span class=''><span class='name text-muted'>"+currChef.phone+'</span><br/></span>');
 		         }); 
 				
 			},

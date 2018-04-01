@@ -46,7 +46,7 @@ public class AuthenticationController {
 		return userService.save(user);
 	}
 	
-	@RequestMapping(value ="/show-home", method=RequestMethod.GET)
+	@RequestMapping(value ="/users/home", method=RequestMethod.GET)
 	public ModelAndView showHomePage(Model model) {
 		System.out.println("Show Home page");
 		ModelAndView modelAndView = new ModelAndView();
@@ -59,5 +59,14 @@ public class AuthenticationController {
 		//return new ModelAndView("home");
 	}
 	
+	
+	@RequestMapping(value ="/admin/home", method=RequestMethod.GET)
+	public ModelAndView showAdminHomePage(Model model) {
+		System.out.println("Show Admin Home page");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("admin_home");
+		return modelAndView;
+		//return new ModelAndView("home");
+	}
 	
 }

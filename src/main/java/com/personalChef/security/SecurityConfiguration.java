@@ -3,12 +3,14 @@ package com.personalChef.security;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +24,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Value("${spring.queries.roles-query}")
 	private String rolesQuery;
+	
+	@Autowired
+	@Qualifier(value="handler")
+	private AuthenticationSuccessHandler successHandler;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
@@ -38,16 +44,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	 http.csrf().disable()
          .authorizeRequests()
-				.antMatchers("/admin/**").hasAnyRole("ADMIN")
-				.antMatchers("/users/**").hasAnyRole("USER")
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/users/**").hasRole("USER")
 				.antMatchers("/logout","/user").permitAll()
          .and()
          .formLogin()
-				.loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/show-home")
+				.loginPage("/login").failureUrl("/login?error=true").successHandler(successHandler)
 				.usernameParameter("username")
 				.passwordParameter("password")
 				.and()
-         .logout()
+         .logout().logoutSuccessUrl("/show-login")
 				.permitAll();
 
     // "/resources/**",

@@ -221,11 +221,5 @@
     <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
     
 </div>
-	
-	
-	
-	
-	
-	
 </body>
 </html>

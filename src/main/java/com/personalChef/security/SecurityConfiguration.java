@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -49,11 +50,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/logout","/user").permitAll()
          .and()
          .formLogin()
-				.loginPage("/login").failureUrl("/login?error=true").successHandler(successHandler)
+				.loginPage("/login").failureUrl("/show-login?error=true").successHandler(successHandler)
 				.usernameParameter("username")
 				.passwordParameter("password")
 				.and()
-         .logout().logoutSuccessUrl("/show-login")
+         .logout().logoutSuccessUrl("/show-login?error=logged out")
 				.permitAll();
 
     // "/resources/**",
@@ -65,11 +66,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .withUser("user").password("password").roles("USER");
     }*/
     
-    /*@Override
+    @Override
     public void configure(final WebSecurity web) throws Exception {
        // web.ignoring().antMatchers("/public/**");
     	web
 	       .ignoring()
 	       .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
-    }*/
+    }
 }

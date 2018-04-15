@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,9 +27,13 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(value ="/show-login", method=RequestMethod.GET)
-	public ModelAndView showLoginPage(Model model) {
+	public ModelAndView showLoginPage(@PathVariable(name="error", required=false) String error) {
 		System.out.println("Show login page");
-		return new ModelAndView("login");
+		ModelAndView modelAndView = new ModelAndView("login");
+		if (error != null && error.equalsIgnoreCase("true")) {
+			modelAndView.addObject("error", "Login failed");
+		}
+		return modelAndView;
 	}
 	
 	@RequestMapping(value ="/user", method=RequestMethod.GET)

@@ -35,11 +35,49 @@ public class TestRepoTest {
 	@Test
 	public void testStuff() {
 		
-		jdbcTemplate.execute("insert into chef (id, chef_name, address, phone) values (2, 'John', 'California', '+12302384932')");
+		jdbcTemplate.execute("insert into chef (id, chef_name, address, phone) values (1, 'John', 'California', '+12302384932')");
 		Chef chef = testRepo.findById(1);
 
 		assertThat(chef).isNotNull();
 		assertThat(chef.getId()).isEqualTo(1);
+		// Some smart assertions
+	}
+	
+	@Test
+	public void testSave() throws Exception{
+		
+		// jdbcTemplate.execute("insert into chef (id, chef_name, address, phone) values (2, 'John', 'California', '+12302384932')");
+		Chef chef = new Chef();
+		chef.setId(2);
+		chef.setName("Chaitanya");
+		chef.setPhone("8888127034");
+		chef.setAddress("Shukrawar Peth");
+
+		int rows = testRepo.save(chef);
+		
+		assertThat(rows).isNotZero();
+		
+		chef = testRepo.findById(2);
+
+		assertThat(chef).isNotNull();
+		assertThat(chef.getId()).isEqualTo(2);
+		// Some smart assertions
+	}
+	
+	@Test (expected = Exception.class)
+	public void testSaveThrowsException() throws Exception{
+		
+		// jdbcTemplate.execute("insert into chef (id, chef_name, address, phone) values (2, 'John', 'California', '+12302384932')");
+		Chef chef = null;
+
+		int rows = testRepo.save(chef);
+		
+		assertThat(rows).isNotZero();
+		
+		chef = testRepo.findById(2);
+
+		assertThat(chef).isNotNull();
+		assertThat(chef.getId()).isEqualTo(2);
 		// Some smart assertions
 	}
 	

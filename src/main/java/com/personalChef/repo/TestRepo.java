@@ -27,12 +27,16 @@ public class TestRepo {
 				return chef;
 			}
 		});
-		
+
 		return chef;
 	}
 
-
-
-
-
+	public int save(Chef chef) throws Exception{
+		if (chef == null){
+			throw new Exception("Unable to insert null data");
+		}
+		
+		int update = jdbcTemplate.update("insert into chef (id, chef_name, address, phone) values (?,?,?,?)", new Object[]{chef.getId(), chef.getName(), chef.getAddress(), chef.getAddress()});
+		return update;
+	}
 }
